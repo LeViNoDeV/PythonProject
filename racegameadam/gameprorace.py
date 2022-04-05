@@ -16,21 +16,27 @@ horse1_x = 0
 horse1_y = 20
 
 horse2_x = 0
-horse2_y = 110
+horse2_y = 80
+
+horse3_x = 0
+horse3_y = 140
 
 def start_game():
     global horse2_x
     global horse1_x
+    global horse3_x
     global winner
     while winner ==False:
         time.sleep(0.05)
         random_move_horse_2 = random.randrange(0,20)
         random_move_horse_1 = random.randrange(0,20)
+        random_move_horse_3 = random.randrange(0,20)
         #update x pos from both horses
         horse2_x += random_move_horse_2
         horse1_x += random_move_horse_1
+        horse3_x +=random_move_horse_3
 
-        move_horses(random_move_horse_1,random_move_horse_2)
+        move_horses(random_move_horse_1,random_move_horse_2,random_move_horse_3)
         main_screen.update()
         winner = chek_winner()
     if winner =="TIE":
@@ -41,17 +47,20 @@ def start_game():
 
 
 
-def move_horses(horse_1_random_move,horse_2_random_move):
+def move_horses(horse_1_random_move,horse_2_random_move,horse_3_random_move):
     Canvas.move(horse_1,horse_1_random_move,0)
     Canvas.move(horse_2,horse_2_random_move,0)
+    Canvas.move(horse_3,horse_3_random_move,0)
 
 def chek_winner():
-    if horse2_x >= 483 and horse1_x >=483:
+    if horse2_x >= 510 and horse1_x >=510 and horse3_x >510:
         return "TIE"
-    if horse2_x>=483:
+    if horse2_x>=510:
         return"horse2"  
-    if horse1_x>=483:
-        return"horse1"    
+    if horse1_x>=510:
+        return"horse1"
+    if horse3_x>=510:
+        return"horse3"        
     return False  
 
 
@@ -73,17 +82,19 @@ Canvas.pack(pady = 20)
 #adding images
 horse_image = PhotoImage(file="horseimage222.jpg.png")
 horse_image2 = PhotoImage(file="horseimage222.jpg.png")
-
+horse_image3 = PhotoImage(file="horseimage222.jpg.png")
 #resizing images
-horse_image = horse_image.zoom(8)
-horse_image = horse_image.subsample(50)
-horse_image2 = horse_image2.zoom(8)
-horse_image2 = horse_image2.subsample(50)
- 
+horse_image = horse_image.zoom(5)
+horse_image = horse_image.subsample(40)
+horse_image2 = horse_image2.zoom(5)
+horse_image2 = horse_image2.subsample(40)
+horse_image3 = horse_image2.zoom(5)
+horse_image3 = horse_image2.subsample(40)
+  
 #adding images to canvas
 horse_1 = Canvas.create_image(horse1_x,horse1_y, anchor = NW ,image = horse_image)
 horse_2 = Canvas.create_image(horse2_x,horse2_y,anchor = NW ,image = horse_image )
-
+horse_3 = Canvas.create_image(horse3_x,horse3_y,anchor = NW ,image = horse_image )
 #adding labels to the screen (text)
 l1 =Label(main_screen, text = 'select your horse',font=('calibri',20),fg='red',bg='white' )
 l1.place(x=230,y =280)
