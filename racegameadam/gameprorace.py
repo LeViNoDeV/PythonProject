@@ -1,7 +1,8 @@
 from tkinter import*
 import time
 import random
-import tkinter
+import tkinter 
+
 
 
 
@@ -75,7 +76,6 @@ def chek_winner():
 def End_game():
     exit()
 
-
 #main screen
 main_screen =Tk()
 main_screen.title('horse race')
@@ -108,11 +108,13 @@ l1.place(x=310,y =380)
 l2 =Label(main_screen, text = 'f\ni\nn\ni\ns\nh\n',font=('calibri',20),fg='red',bg='white' )
 l2.place(x=735,y=385)
 
-
+#buttons
 b1 =Button (main_screen,text='Play',height=2,width=15, bg ='white', font=('calibri',20),fg='red' ,command=start_game)
-b1.place(x= 280,y=490)
+
+b1.place_forget()
 b2 = Button(main_screen,text='Exit Game',height=2,width=10,bg='white',font=('calibri',10),fg='red',command= End_game)
 b2.place(x=0,y=0)
+
 #creating finish line
 # Coordinates of the line
 coordinates = 700,0,700,400
@@ -120,7 +122,69 @@ coordinates = 700,0,700,400
 Canvas.create_line(coordinates, dash=(5,3) , width=9, fill='red')
 Canvas.pack()
 
+#creating entery box 
+def button_command():
+    
+    text= entery1.get()
+    if text =='1':
+        l5 =Label(main_screen, text = 'horse 1',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x=350,y =380)
+        
+        l1.place_forget()
+        entery1.pack_forget()
+        b3.pack_forget()
+        
+        entery2.pack()
+        b4.pack()
+        l6 =Label(main_screen, text = 'place ypur bet',font=('calibri',20),fg='red',bg='white' )
+        l6.place(x=330,y =380)
+    if text =='2':
+        l5 =Label(main_screen, text = 'horse 2',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x=350,y =380)
+        entery1.delete(0,899) 
+        l1.place_forget()   
+        entery1.pack_forget()
+        b3.pack_forget()
+        entery2.pack()
+        b4.pack()
+        l6 =Label(main_screen, text = 'place ypur bet',font=('calibri',20),fg='red',bg='white' )
+        l6.place(x=330,y =380)
+    if text =='3':
+        l5 =Label(main_screen, text = 'horse 3',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x=350,y =380)
+        
+        l1.place_forget()  
+        entery1.pack_forget()
+        b3.pack_forget()
+        entery2.pack()
+        b4.pack()
+        l6 =Label(main_screen, text = 'place ypur bet',font=('calibri',20),fg='red',bg='white' )
+        l6.place(x=330,y =380)
+    return None
+
+def button_command2():
+    textbet = entery2.get()
+    b4.pack_forget()
+    entery2.pack_forget()
+    l7 =Label(main_screen, text = 'your bet is: '+textbet,font=('calibri',20),fg='red',bg='white' )
+    l7.place(x=330,y =380)
+    b1.place(x= 280,y=490)
+    if text =='1':
+        if winner =="horse1":
+            l8 =Label(main_screen, text = 'your bet is: '+textbet*2,font=('calibri',20),fg='red',bg='white' )
+            l8.place(x=330,y =380)
+        
+  
 
 
 
+entery1 = Entry(main_screen , width=20 )
+entery1.pack()
+text= entery1.get()
+b3 = Button (main_screen,text='bet', command = button_command)
+b3.pack()
+entery2 = Entry(main_screen , width=20 )
+entery2.pack_forget()
+b4 = Button (main_screen,text='bet', command = button_command2)
+b4.pack_forget()
 main_screen.mainloop()
