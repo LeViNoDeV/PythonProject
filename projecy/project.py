@@ -1,7 +1,7 @@
 import turtle
 import random
 import time
-
+import tkinter 
 
 
 #window
@@ -9,7 +9,7 @@ import time
 wn = turtle.Screen()
 wn.title("Cards War!")
 wn.bgcolor("green")
-wn.setup(width=1000, height=1200)
+wn.setup(width=1000, height=1300)
 
 
 
@@ -78,7 +78,9 @@ wn.addshape("kClover.gif")
 
 wn.addshape("back.gif")
 wn.addshape("clickme.gif")
+wn.addshape("fakeclickme.gif")
 wn.addshape("autoplace.gif")
+wn.addshape("restart.gif")
 
 #list of turtle and set shape
 start1 = turtle.Turtle(visible=False)
@@ -255,12 +257,18 @@ listT[51].val = 13
 
     
 
-#click me button + auto place
+#click me button + auto place + restart
 click = turtle.Turtle(visible = False)
 click.speed(0)
 click.penup()
 click.setpos(0,100)
 click.shape("clickme.gif")
+
+fakeclickme = turtle.Turtle(visible = False)
+fakeclickme.speed(0)
+fakeclickme.penup()
+fakeclickme.setpos(0,100)
+fakeclickme.shape("fakeclickme.gif")
 
 auto = turtle.Turtle(visible = False)
 auto.speed(0)
@@ -268,6 +276,11 @@ auto.penup()
 auto.setpos(0,0)
 auto.shape("autoplace.gif")
 
+restart = turtle.Turtle(visible = False)
+restart.speed(0)
+restart.penup()
+restart.setpos(0,-50)
+restart.shape("restart.gif")
 
 #fake card
 fake1 = turtle.Turtle(visible = False)
@@ -289,8 +302,6 @@ fake1.shape("back.gif")
 fake2.shape("back.gif")
 fake1.setpos(-200,400)#computer
 fake2.setpos(-200,-400)#player
-fake1.st()
-fake2.st()
 
 
 fakep_1.speed(0)
@@ -379,7 +390,6 @@ numcards1.hideturtle()
 numcards1.color("black")
 numcards1.penup()
 numcards1.setpos(-265,-460)
-numcards1.write(playerc, move=False, align="left", font=("Aharoni", 105, "normal"))
 #numcards2
 
 numcards2 = turtle.Turtle(visible = False)
@@ -388,11 +398,149 @@ numcards2.hideturtle()
 numcards2.color("black")
 numcards2.penup()
 numcards2.setpos(-265,340)
-numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
 
-auto.showturtle()
-click.showturtle()
 
+
+
+#betsystem
+
+chips = 10000
+betmoney = 100
+wn.addshape("less.gif")
+wn.addshape("more.gif")
+wn.addshape("bet.gif")
+wn.addshape("allin.gif")
+allin = turtle.Turtle()
+bet = turtle.Turtle()
+less = turtle.Turtle()
+more = turtle.Turtle()
+allin.speed(0)
+bet.speed(0)
+more.speed(0)
+less.speed(0)
+allin.penup()
+more.penup()
+less.penup()
+bet.penup()
+more.shape("more.gif")
+bet.shape("bet.gif")
+less.shape("less.gif")
+allin.shape("allin.gif")
+allin.setpos(0,-100)
+more.setpos(200,-100)
+bet.setpos(0,0)
+less.setpos(-200,-100)
+more.showturtle()
+less.showturtle()
+bet.showturtle()
+allin.showturtle()
+wn.addshape("border.gif")
+border = turtle.Turtle()
+border.speed(0)
+border.penup()
+border.shape("border.gif")
+border.setpos(0,200)
+border.showturtle()
+
+
+
+#moneytext
+
+moneytext = turtle.Turtle(visible = False)
+moneytext.speed(0)
+moneytext.hideturtle()
+moneytext.color("black")
+moneytext.penup()
+moneytext.setpos(-150,150)
+moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+
+#chipsnum
+chipsnum = turtle.Turtle(visible = False)
+chipsnum.speed(0)
+chipsnum.hideturtle()
+chipsnum.color("Red")
+chipsnum.penup()
+chipsnum.setpos(-480,580)
+chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+
+#chipsnum2
+chipsnum2 = turtle.Turtle(visible = False)
+chipsnum2.speed(0)
+chipsnum2.hideturtle()
+chipsnum2.color("Red")
+chipsnum2.penup()
+chipsnum2.setpos(-125,580)
+chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
+
+def moremoney(x,y):
+    global betmoney
+    global chips
+
+    if(betmoney<chips):
+        betmoney+=100
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+    elif(betmoney==chips):
+        betmoney=chips
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+        tkinter.messagebox.showwarning("ChipSystem","You dont have enough chips!", )
+    elif(betmoney==0):
+        betmoney=0
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+        tkinter.messagebox.showwarning("ChipSystem","You dont have enough chips to play the game!", )
+           
+def lessmoney(x,y):
+    global betmoney 
+
+    if(betmoney==100):
+        betmoney=100
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+        tkinter.messagebox.showwarning("ChipSystem","You cannot enter less than 100 Chips!", )
+    elif(betmoney>100):
+        betmoney-=100
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+    elif(betmoney==0):
+        betmoney=0
+        moneytext.clear()
+        moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+        tkinter.messagebox.showwarning("ChipSystem","You cannot enter less than 0 Chips!", )
+        
+def allin1(x,y):
+    global betmoney
+    global chips
+    betmoney=chips
+    moneytext.clear()
+    moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+    
+def betsystem(x,y):
+    global betmoney
+    global chips
+    chips-=betmoney
+    if(betmoney==0):
+        tkinter.messagebox.showwarning("ChipSystem","You dont have enough chips to play!", )
+    elif(betmoney!=0):
+        chipsnum.clear()
+        chipsnum2.clear()
+        chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+        chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
+        print("betted: ",betmoney)
+        moneytext.clear()
+        border.hideturtle()
+        bet.hideturtle()
+        allin.hideturtle()
+        more.hideturtle()
+        less.hideturtle()
+        fake1.showturtle()
+        fake2.showturtle()
+        auto.showturtle()
+        click.showturtle()
+        numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
+        numcards1.write(playerc, move=False, align="left", font=("Aharoni", 105, "normal"))
+        s=True
 print("************************")
 
 
@@ -403,7 +551,38 @@ win.speed(0)
 win.hideturtle()
 win.color("Red")
 win.penup()
-win.setpos(-265,0)
+win.setpos(-265,550)
+
+
+def restart1(x,y):
+    global betmoney
+    global chips
+    win.clear()
+    list1.clear()
+    list2.clear()
+    print("************************")
+    for i in range(5):
+        random.shuffle(listT)  
+    for i in range(26):
+        list1.append(listT[i])
+        random.shuffle(list1)
+        
+    for i in range(26,52):
+        list2.append(listT[i])
+        random.shuffle(list2)
+    restart.hideturtle()
+    border.showturtle()
+    bet.showturtle()
+    allin.showturtle()
+    more.showturtle()
+    less.showturtle()
+    if(chips>0):
+        betmoney = 100
+    elif(chips<=0):
+        betmoney=0
+    moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
+
+
 
 s=True
 
@@ -411,7 +590,11 @@ while s==True:
     wn.update()
     
     def cardson(x,y):
-                  
+        click.hideturtle()
+        fakeclickme.showturtle()
+        global  chips
+        global betmoney
+        yes=True         
         playerc = len(list2)
         computerc = len(list1)
 
@@ -431,6 +614,8 @@ while s==True:
             auto.hideturtle()
             win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
             s=False
+            restart.showturtle()
+        
             
         elif(len(list2)==52):
 
@@ -443,11 +628,18 @@ while s==True:
             print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
             print("   Player Won The Game!    ")
             print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+            chips=chips+2*betmoney
+            chipsnum.clear()
+            chipsnum2.clear()
+            chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+            chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
             win.setpos(-325,0)
             click.hideturtle()
             auto.hideturtle()
             win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
             s=False
+            restart.showturtle()
+
         
         elif(len(list1)>0 and len(list2)>0):
             
@@ -472,7 +664,8 @@ while s==True:
                 numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
                 print("Computer Won!!!")
                 print("************************")
-                
+                fakeclickme.hideturtle()
+                click.showturtle()
             elif(list1[0].val<list2[0].val):
                 list2.append(list1[0])
                 list1.remove(list1[0])
@@ -489,6 +682,8 @@ while s==True:
                 numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
                 print("Player Won!!!")
                 print("************************")
+                fakeclickme.hideturtle()
+                click.showturtle()
 
             
                     
@@ -535,7 +730,17 @@ while s==True:
                 fakep_1.hideturtle()
                 fakec_1.hideturtle()
 
-                
+                if(list1[4].val == list2[4].val):
+                    yes = True
+                    while yes == True:
+                        list1random = random.randint(4,len(list1)-1)
+                        list2random = random.randint(4,len(list2)-1)
+                        list1.insert(4,list1[list1random])
+                        list2.insert(4,list2[list2random])
+                        list1.pop(list1random+1)
+                        list2.pop(list2random+1)
+                        if(list1[4] != list2[4]):
+                            yes = False
                 
                 list1[4].setpos(200,400)
                 list2[4].setpos(200,-400)
@@ -588,6 +793,8 @@ while s==True:
                     numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
                     print("Computer Won!!!")
                     print("************************")
+                    fakeclickme.hideturtle()
+                    click.showturtle()
                     
                 elif(list1[4].val<list2[4].val):
                     
@@ -635,6 +842,8 @@ while s==True:
                     numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
                     print("Player Won!!!")
                     print("************************")
+                    fakeclickme.hideturtle()
+                    click.showturtle()
 
             elif(list1[0].val==list2[0].val and  len(list1) < 5):
                 list1[0].hideturtle()
@@ -649,11 +858,17 @@ while s==True:
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
                 print("   Player Won The Game!    ")
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+                chips=chips+2*betmoney
+                chipsnum.clear()
+                chipsnum2.clear()
+                chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+                chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
                 win.setpos(-300,0)
                 click.hideturtle()
                 auto.hideturtle()
                 win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
+                restart.showturtle()
 
             elif(list1[0].val==list2[0].val and len(list2) < 5 ):
                 list1[0].hideturtle()
@@ -673,6 +888,7 @@ while s==True:
                 auto.hideturtle()
                 win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
+                restart.showturtle()
                 
 
             elif(list1[0].val==list2[0].val and  len(list1) < 5 and len(list2) < 5 ):
@@ -688,11 +904,18 @@ while s==True:
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
                 print("            Draw!           ")
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+                chips=chips+betmoney
+                chipsnum.clear()
+                chipsnum2.clear()
+                chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+                chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
                 win.setpos(-275,0)
                 click.hideturtle()
                 auto.hideturtle()
                 win.write("Draw!", move=False, align="left", font=("Agency FB", 105, "normal"))
-                s=False            
+                s=False
+                restart.showturtle()
+
 
                 
         
@@ -705,8 +928,13 @@ while s==True:
 
 
     def forward(x,y):
+        fakeclickme.hideturtle()
+        auto.hideturtle()
+        click.hideturtle()
+        global betmoney
+        global chips
         checkwhile = True
-        x = True
+        yes = True
 
 
         while checkwhile==True:
@@ -731,6 +959,7 @@ while s==True:
                 win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
                 checkwhile=False
+                restart.showturtle()
 
             elif(len(list2)==52):
                             
@@ -743,12 +972,18 @@ while s==True:
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
                 print("   Player Won The Game!    ")
                 print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+                chips=chips+2*betmoney
+                chipsnum.clear()
+                chipsnum2.clear()
+                chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+                chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
                 win.setpos(-325,0)
                 click.hideturtle()
                 auto.hideturtle()
                 win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
                 checkwhile=False
+                restart.showturtle()
           
             
             
@@ -844,8 +1079,8 @@ while s==True:
                     
                     
                     if(list1[4].val == list2[4].val):
-                        x = True
-                        while x == True:
+                        yes = True
+                        while yes == True:
                             list1random = random.randint(4,len(list1)-1)
                             list2random = random.randint(4,len(list2)-1)
                             list1.insert(4,list1[list1random])
@@ -853,7 +1088,7 @@ while s==True:
                             list1.pop(list1random+1)
                             list2.pop(list2random+1)
                             if(list1[4] != list2[4]):
-                                    x = False
+                                    yes = False
                             
                     
         
@@ -869,11 +1104,11 @@ while s==True:
                         list1.append(list2[0])
 
 
-                        list2.remove(list2[3])
                         list2.remove(list2[4])
-                        list2.remove(list2[0])
-                        list2.remove(list2[1])
+                        list2.remove(list2[3])
                         list2.remove(list2[2])
+                        list2.remove(list2[1])
+                        list2.remove(list2[0])
                         
                         
                         
@@ -891,11 +1126,11 @@ while s==True:
                         list1.append(list1[0])
                         list1.append(list1[4])
 
-                        list1.remove(list1[1])
-                        list1.remove(list1[2])
-                        list1.remove(list1[3])
-                        list1.remove(list1[0])
                         list1.remove(list1[4])
+                        list1.remove(list1[3])
+                        list1.remove(list1[2])
+                        list1.remove(list1[1])
+                        list1.remove(list1[0])
 
                         
                         
@@ -918,11 +1153,11 @@ while s==True:
                         list2.append(list1[0])
 
 
-                        list1.remove(list1[3])
                         list1.remove(list1[4])
-                        list1.remove(list1[0])
-                        list1.remove(list1[1])
+                        list1.remove(list1[3])
                         list1.remove(list1[2])
+                        list1.remove(list1[1])
+                        list1.remove(list1[0])
                         
                           
 
@@ -939,11 +1174,11 @@ while s==True:
                         list2.append(list2[4])
                         list2.append(list2[0])
 
-                        list2.remove(list2[0])
-                        list2.remove(list2[1])
-                        list2.remove(list2[2])
-                        list2.remove(list2[3])
                         list2.remove(list2[4])
+                        list2.remove(list2[3])
+                        list2.remove(list2[2])
+                        list2.remove(list2[1])
+                        list2.remove(list2[0])
                         
                         
                         
@@ -975,12 +1210,18 @@ while s==True:
                     print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
                     print("   Player Won The Game!    ")
                     print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+                    chips=chips+2*betmoney
+                    chipsnum.clear()
+                    chipsnum2.clear()
+                    chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+                    chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
                     win.setpos(-300,0)
                     click.hideturtle()
                     auto.hideturtle()
                     win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                     s=False
                     checkwhile=False
+                    restart.showturtle()
 
                 elif(list1[0].val==list2[0].val and len(list2) < 5 ):
                     list1[0].hideturtle()
@@ -1001,6 +1242,8 @@ while s==True:
                     win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                     s=False
                     checkwhile=False
+                    restart.showturtle()
+
 
                 elif(list1[0].val==list2[0].val and  len(list1) < 5 and len(list2) < 5 ):
                     list1[0].hideturtle()
@@ -1015,16 +1258,20 @@ while s==True:
                     print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
                     print("            Draw!           ")
                     print("⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐")
+                    chips=chips+betmoney
+                    chipsnum.clear()
+                    chipsnum2.clear()
+                    chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
+                    chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
                     win.setpos(-275,0)
                     click.hideturtle()
                     auto.hideturtle()
                     win.write("Draw!", move=False, align="left", font=("Agency FB", 105, "normal"))
                     s=False            
                     checkwhile=False
+                    restart.showturtle()
 
-                    
-            
-        
+
         
 
     
@@ -1034,8 +1281,17 @@ while s==True:
 
     
     turtle.listen()
+    #chips system
+    less.onclick(lessmoney, 1)
+    more.onclick(moremoney, 1)
+    allin.onclick(allin1, 1)
+    bet.onclick(betsystem, 1)
+    #gameplay
     click.onclick(cardson, 1)
     auto.onclick(forward, 1)
+    restart.onclick(restart1, 1)
+
+    
 
     turtle.mainloop()  
 
