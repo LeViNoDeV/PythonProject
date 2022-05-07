@@ -49,6 +49,7 @@ def start_game():
         Label(main_screen,text=winner,font=('calibri',40),fg= 'red',bg ='white').place(x= 200,y= 290)
     if winner == 'your horse has won':
         Label(main_screen,text=winner,font=('calibri',40),fg = 'red',bg ='white').place(x= 250, y= 350)
+    else:    Label(main_screen,text=winner + ' wins',font=('calibri',40),fg = 'red',bg ='white').place(x= 250, y= 350)
 
 
 
@@ -73,12 +74,19 @@ def chek_winner():
                    
     
     
-    if helpc == 1 and horse1_x>=550:
+    if horse1_x>=550 and helpc == 1 :
          return "your horse has won"
     if horse2_x>=550 and helpc==2 :       
          return "your horse has won"       
-    if helpc == 3 and horse3_x>=550:
-         return "your horse has won"   
+    if horse3_x>=550 and helpc ==3:
+         return "your horse has won"  
+    
+    if horse2_x>=550:
+        return"horse 2"  
+    if horse1_x>=550:
+        return"horse 1"
+    if horse3_x>=550:
+        return"horse 3"        
              
     return False  
 
@@ -142,8 +150,8 @@ def button_command():
     text = entery1.get()
     if text =='1':
         helpc = 1
-        l5 =Label(main_screen, text = 'horse 1',font=('calibri',20),fg='red',bg='white' )
-        l5.place(x=200,y =420)
+        l5 =Label(main_screen, text = 'your horse is: horse 1',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x=70,y =420)
         
         l1.place_forget()
         entery1.pack_forget()
@@ -155,8 +163,8 @@ def button_command():
         l6.place(x=330,y =380)
     if text =='2':
         helpc = 2
-        l5 =Label(main_screen, text = 'horse 2',font=('calibri',20),fg='red',bg='white' )
-        l5.place(x=200,y =420)
+        l5 =Label(main_screen, text = 'your horse is: horse 2',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x= 70,y =420)
         entery1.delete(0,899) 
         l1.place_forget()   
         entery1.pack_forget()
@@ -168,8 +176,8 @@ def button_command():
 
     if text =='3':
         helpc = 3
-        l5 =Label(main_screen, text = 'horse 3',font=('calibri',20),fg='red',bg='white' )
-        l5.place(x=200,y =420)
+        l5 =Label(main_screen, text = 'your horse is: horse 3',font=('calibri',20),fg='red',bg='white' )
+        l5.place(x=70,y =420)
         
         l1.place_forget()  
         entery1.pack_forget()
