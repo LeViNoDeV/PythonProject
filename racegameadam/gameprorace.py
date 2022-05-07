@@ -4,12 +4,11 @@ import time
 import random
 import tkinter
 
-from sqlalchemy import false 
 
 
 
 
-
+helpc=0 
 
 
 
@@ -25,6 +24,8 @@ horse2_y = 120
 horse3_x = 0
 horse3_y = 220
 
+
+
 def start_game():
     
     global horse2_x
@@ -33,7 +34,7 @@ def start_game():
     global winner
     while winner ==False:
         time.sleep(0.03)
-        random_move_horse_2 = random.randrange(19,20)
+        random_move_horse_2 = random.randrange(0,20)
         random_move_horse_1 = random.randrange(0,20)
         random_move_horse_3 = random.randrange(0,20)
         #update x pos from both horses
@@ -59,6 +60,8 @@ def move_horses(horse_1_random_move,horse_2_random_move,horse_3_random_move):
 
 def chek_winner():
     
+    global helpc
+    
     if horse2_x >= 550 and horse1_x >=550 and horse3_x >510:
         return "TIE"
     if horse2_x >= 550 and horse1_x >=550:
@@ -70,11 +73,11 @@ def chek_winner():
                    
     
     
-    if text == 1 and horse1_x>=550:
+    if helpc == 1 and horse1_x>=550:
          return "your horse has won"
-    if horse2_x>=550 and text == 2 :       
+    if horse2_x>=550 and helpc==2 :       
          return "your horse has won"       
-    if text == '3'and horse3_x>=550:
+    if helpc == 3 and horse3_x>=550:
          return "your horse has won"   
              
     return False  
@@ -89,6 +92,8 @@ main_screen =Tk()
 main_screen.title('horse race')
 main_screen.geometry('800x600')
 main_screen.config(background='white')
+
+
 
 #canvas setup
 Canvas =Canvas(main_screen,width= 700, height=400,bg ='white')
@@ -132,9 +137,11 @@ Canvas.pack()
 
 #creating entery box 
 def button_command():
+    global helpc
     
     text = entery1.get()
     if text =='1':
+        helpc = 1
         l5 =Label(main_screen, text = 'horse 1',font=('calibri',20),fg='red',bg='white' )
         l5.place(x=200,y =420)
         
@@ -147,6 +154,7 @@ def button_command():
         l6 =Label(main_screen, text = 'place your bet',font=('calibri',20),fg='red',bg='white' )
         l6.place(x=330,y =380)
     if text =='2':
+        helpc = 2
         l5 =Label(main_screen, text = 'horse 2',font=('calibri',20),fg='red',bg='white' )
         l5.place(x=200,y =420)
         entery1.delete(0,899) 
@@ -157,7 +165,9 @@ def button_command():
         b4.pack()
         l6 =Label(main_screen, text = 'place your bet',font=('calibri',20),fg='red',bg='white' )
         l6.place(x=330,y =380)
+
     if text =='3':
+        helpc = 3
         l5 =Label(main_screen, text = 'horse 3',font=('calibri',20),fg='red',bg='white' )
         l5.place(x=200,y =420)
         
@@ -179,7 +189,8 @@ def button_command2():
     b1.place(x= 280,y=490)
     
         
-  
+
+
 
 
 
