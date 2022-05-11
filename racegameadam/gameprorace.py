@@ -2,8 +2,8 @@
 from tkinter import*
 import time
 import random
-import tkinter
-
+import sys
+import os
 
 
 
@@ -95,6 +95,16 @@ def chek_winner():
 def End_game():
     exit()
 
+
+
+def new_round():
+    """Restarts the current program.
+    Note: this function does not return. Any cleanup action (like
+    saving data) must be done before calling this function."""
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
+    
+#buttons
 #main screen
 main_screen =Tk()
 main_screen.title('horse race')
@@ -124,24 +134,31 @@ horse_1 = Canvas.create_image(horse1_x,horse1_y, anchor = NW ,image = horse_imag
 horse_2 = Canvas.create_image(horse2_x,horse2_y,anchor = NW ,image = horse_image )
 horse_3 = Canvas.create_image(horse3_x,horse3_y,anchor = NW ,image = horse_image )
 #adding labels to the screen (text)
-l1 =Label(main_screen, text = 'select your horse',font=('calibri',20),fg='red',bg='white' )
+l1 =Label(main_screen, text = 'select your horse (1,2,3)',font=('calibri',20),fg='red',bg='white' )
 l1.place(x=310,y =380)
 l2 =Label(main_screen, text = 'f\ni\nn\ni\ns\nh\n',font=('calibri',20),fg='red',bg='white' )
 l2.place(x=735,y=385)
+#casino chips
 
-#buttons
+
+casinochips =10000
+
+lchip = Label(main_screen, text =  casinochips ,font=('calibri',20),fg='red',bg='white')
+lchip.place(x=19,y=450)
 b1 =Button (main_screen,text='Play',height=2,width=15, bg ='white', font=('calibri',20),fg='red' ,command=start_game)
 
 b1.place_forget()
 b2 = Button(main_screen,text='Exit Game',height=2,width=10,bg='white',font=('calibri',10),fg='red',command= End_game)
 b2.place(x=0,y=0)
-
+b3 = Button(main_screen,text='New Round',height=2,width=10,bg='white',font=('calibri',10),fg='red',command= new_round )
+b3.place(x=700,y=0)
 #creating finish line
 # Coordinates of the line
 coordinates = 700,0,700,400
 #dashed line!
 Canvas.create_line(coordinates, dash=(5,3) , width=9, fill='red')
 Canvas.pack()
+
 
 #creating entery box 
 def button_command():
@@ -213,4 +230,12 @@ entery2.pack_forget()
 textbet = entery2.get()
 b4 = Button (main_screen,text='bet', command = button_command2)
 b4.pack_forget()
+
+
+
+
+
+
+
+
 main_screen.mainloop()
