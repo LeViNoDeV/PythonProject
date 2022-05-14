@@ -8,6 +8,8 @@ import os
 
 
 
+
+
 helpc=0 
 
 
@@ -32,6 +34,11 @@ def start_game():
     global horse1_x
     global horse3_x
     global winner
+    global casinochips
+    
+    
+    
+    
     while winner ==False:
         time.sleep(0.03)
         random_move_horse_2 = random.randrange(0,20)
@@ -49,6 +56,7 @@ def start_game():
         Label(main_screen,text=winner,font=('calibri',40),fg= 'red',bg ='white').place(x= 200,y= 290)
     if winner == 'your horse has won':
         Label(main_screen,text=winner,font=('calibri',40),fg = 'red',bg ='white').place(x= 250, y= 350)
+        Label(main_screen,text=  casinochips*2,font=('calibri',20),fg = 'red',bg ='white').place(x= 100, y= 500)
     else:    Label(main_screen,text=winner + ' wins',font=('calibri',40),fg = 'red',bg ='white').place(x= 250, y= 350)
 
 
@@ -138,15 +146,10 @@ l1 =Label(main_screen, text = 'select your horse (1,2,3)',font=('calibri',20),fg
 l1.place(x=310,y =380)
 l2 =Label(main_screen, text = 'f\ni\nn\ni\ns\nh\n',font=('calibri',20),fg='red',bg='white' )
 l2.place(x=735,y=385)
-#casino chips
 
 
-casinochips =10000
 
-lchip = Label(main_screen, text =  casinochips ,font=('calibri',20),fg='red',bg='white')
-lchip.place(x=19,y=450)
 b1 =Button (main_screen,text='Play',height=2,width=15, bg ='white', font=('calibri',20),fg='red' ,command=start_game)
-
 b1.place_forget()
 b2 = Button(main_screen,text='Exit Game',height=2,width=10,bg='white',font=('calibri',10),fg='red',command= End_game)
 b2.place(x=0,y=0)
@@ -205,8 +208,29 @@ def button_command():
         l6.place(x=330,y =380)
     return None
 
+
+
+
+
+#casino chips
+
+
+casinochips =10000
+chiptxt=Label(main_screen, text = 'chips: ' ,font=('calibri',20),fg='red',bg='white')
+chiptxt.place(x=10 ,y=500)
+lchip = Label(main_screen, text = casinochips ,font=('calibri',20),fg='red',bg='white')
+lchip.place(x=100,y=500)
+
 def button_command2():
     textbet = entery2.get()
+    texthelp = int(textbet)
+    if texthelp>0 and texthelp<=10000:
+        lchip.place_forget()
+        chips = casinochips-texthelp
+        chip2 = Label(main_screen, text =  chips ,font=('calibri',20),fg='red',bg='white')
+        chip2.place(x=100,y=500)
+        
+      
     b4.pack_forget()
     entery2.pack_forget()
     l7 =Label(main_screen, text = 'your bet is:   '+ textbet,font=('calibri',20),fg='red',bg='white' )
@@ -228,11 +252,9 @@ b3.pack()
 entery2 = Entry(main_screen , width=20 )
 entery2.pack_forget()
 textbet = entery2.get()
+
 b4 = Button (main_screen,text='bet', command = button_command2)
 b4.pack_forget()
-
-
-
 
 
 
