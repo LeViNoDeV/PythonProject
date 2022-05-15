@@ -441,8 +441,50 @@ numcards2.color("black")
 numcards2.penup()
 numcards2.setpos(-265,340)
 
+#back
+wn.addshape("returntomain.gif")
+backmain = turtle.Turtle(visible = False)
+backmain.speed(0)
+backmain.penup()
+backmain.setpos(-400,-600)
+backmain.shape("returntomain.gif")
+
+    
+
+def back(x,y):
+    border.ht()
+    more.hideturtle()
+    fakemore.ht()
+    moneytext.undo()
+    chipsnum.undo()
+    chipsnum2.undo()
+    less.hideturtle()
+    fakeless.hideturtle()
+    allin.hideturtle()
+    fakeallin.hideturtle()
+    bet.ht()
+    fakebet.hideturtle()
+    win.undo()
+    click.hideturtle()
+    numcards2.undo()
+    numcards1.undo()
+    fakep_1.hideturtle()
+    fakep_2.hideturtle()
+    fakep_3.hideturtle()
+    fake1.hideturtle()
+    fake2.hideturtle()
+    fakeauto.hideturtle()
+    auto.hideturtle()
+    fakeclickme.hideturtle()
+    restart.ht()
+    fakerestart.ht()
+    backmain.hideturtle()
+    
 
 
+    
+    import runpy
+    file_globals = runpy.run_path("ex.py")
 
 #betsystem
 
@@ -476,6 +518,7 @@ more.showturtle()
 less.showturtle()
 bet.showturtle()
 allin.showturtle()
+backmain.showturtle()
 wn.addshape("border.gif")
 border = turtle.Turtle()
 border.speed(0)
@@ -514,7 +557,13 @@ chipsnum2.penup()
 chipsnum2.setpos(-125,580)
 chipsnum2.write(chips, move=False, align="left", font=("Aharoni", 32, "normal"))
 
+
+
+turtle.listen()
+backmain.onclick(back, 1)
+    
 def moremoney(x,y):
+    
     more.hideturtle()
     fakemore.showturtle()
     global betmoney
@@ -575,14 +624,23 @@ def allin1(x,y):
     allin.showturtle()
     
 def betsystem(x,y):
-    bet.hideturtle()
-    fakebet.showturtle()
+    bet.st()
     global betmoney
     global chips
-    chips-=betmoney
     if(betmoney==0):
         tkinter.messagebox.showwarning("ChipSystem","You dont have enough chips to play!", )
+        fakebet.hideturtle()
+
+    
+        
     elif(betmoney!=0):
+        bet.hideturtle()
+        allin.hideturtle()
+        more.hideturtle()
+        less.hideturtle()
+        fakebet.showturtle()
+
+        chips-=betmoney
         chipsnum.clear()
         chipsnum2.clear()
         chipsnum.write("Number of chips: ", move=False, align="left", font=("Aharoni", 32, "normal"))
@@ -590,10 +648,12 @@ def betsystem(x,y):
         print("betted: ",betmoney)
         moneytext.clear()
         border.hideturtle()
-        bet.hideturtle()
+        fakebet.hideturtle()
+
         allin.hideturtle()
         more.hideturtle()
         less.hideturtle()
+
         fake1.showturtle()
         fake2.showturtle()
         auto.showturtle()
@@ -601,8 +661,8 @@ def betsystem(x,y):
         numcards2.write(computerc, move=False, align="left", font=("Aharoni", 105, "normal"))
         numcards1.write(playerc, move=False, align="left", font=("Aharoni", 105, "normal"))
         s=True
-    time.sleep(0.25)
-    fakebet.hideturtle()
+        
+
     
 print("************************")
 
@@ -618,8 +678,8 @@ win.setpos(-265,550)
 
 
 def restart1(x,y):
-    restart.hideturtle()
     fakerestart.showturtle()
+    restart.ht()
     global betmoney
     global chips
     win.clear()
@@ -641,13 +701,13 @@ def restart1(x,y):
     allin.showturtle()
     more.showturtle()
     less.showturtle()
+    fakerestart.hideturtle()
+
     if(chips>0):
         betmoney = 100
     elif(chips<=0):
         betmoney=0
     moneytext.write(betmoney, move=False, align="left", font=("Aharoni", 105, "normal"))
-    fakerestart.hideturtle()
-    restart.showturtle()
 
 
 
@@ -656,7 +716,9 @@ s=True
 while s==True:
     wn.update()
     
+    
     def cardson(x,y):
+        backmain.ht()
         click.hideturtle()
         fakeclickme.showturtle()
         global  chips
@@ -682,7 +744,7 @@ while s==True:
             win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
             s=False
             restart.showturtle()
-        
+            backmain.st()
             
         elif(len(list2)==52):
 
@@ -706,7 +768,7 @@ while s==True:
             win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
             s=False
             restart.showturtle()
-
+            backmain.st()
         
         elif(len(list1)>0 and len(list2)>0):
             
@@ -936,7 +998,8 @@ while s==True:
                 win.write("Player Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
                 restart.showturtle()
-
+                backmain.showturtle()
+                
             elif(list1[0].val==list2[0].val and len(list2) < 5 ):
                 list1[0].hideturtle()
                 list2[0].hideturtle()
@@ -956,7 +1019,7 @@ while s==True:
                 win.write("Computer Won!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
                 restart.showturtle()
-                
+                backmain.showturtle()
 
             elif(list1[0].val==list2[0].val and  len(list1) < 5 and len(list2) < 5 ):
                 list1[0].hideturtle()
@@ -982,6 +1045,7 @@ while s==True:
                 win.write("Draw!", move=False, align="left", font=("Agency FB", 105, "normal"))
                 s=False
                 restart.showturtle()
+                backmain.showturtle()
 
 
                 
@@ -995,6 +1059,7 @@ while s==True:
 
 
     def forward(x,y):
+        backmain.hideturtle()
         auto.hideturtle()
         fakeauto.showturtle()
         time.sleep(0.25)
@@ -1032,7 +1097,7 @@ while s==True:
                 s=False
                 checkwhile=False
                 restart.showturtle()
-
+                backmain.st()
             elif(len(list2)==52):
                             
                 playerc = len(list2)
@@ -1056,6 +1121,7 @@ while s==True:
                 s=False
                 checkwhile=False
                 restart.showturtle()
+                backmain.st()
           
             
             
@@ -1294,6 +1360,7 @@ while s==True:
                     s=False
                     checkwhile=False
                     restart.showturtle()
+                    backmain.st()
 
                 elif(list1[0].val==list2[0].val and len(list2) < 5 ):
                     list1[0].hideturtle()
@@ -1315,6 +1382,7 @@ while s==True:
                     s=False
                     checkwhile=False
                     restart.showturtle()
+                    backmain.st()
 
 
                 elif(list1[0].val==list2[0].val and  len(list1) < 5 and len(list2) < 5 ):
@@ -1342,7 +1410,7 @@ while s==True:
                     s=False            
                     checkwhile=False
                     restart.showturtle()
-
+                    backmain.st()
 
         
 
