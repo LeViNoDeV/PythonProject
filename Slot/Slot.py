@@ -34,33 +34,41 @@ def main():
     global i1
     global i2
     global i3
+    global displaychips
 
     i1 = turtle.Turtle()
     i2 = turtle.Turtle()
     i3 = turtle.Turtle()
     textturtle = turtle.Turtle()
+    displaychips = turtle.Turtle()
 
     i1.penup()
     i2.penup()
     i3.penup()
     textturtle.penup()
+    displaychips.penup()
 
     textturtle.color('white')
+    displaychips.color('white')
 
     i1.hideturtle()
     i2.hideturtle()
     i3.hideturtle()
     textturtle.hideturtle()
+    displaychips.hideturtle()
 
     i1.speed(10000)
     i2.speed(10000)
     i3.speed(10000)
     textturtle.speed(10000)
+    displaychips.speed(10000)
 
     i1.goto(-101,-55)
     i2.goto(-5,-55)
     i3.goto(89,-55)
     textturtle.goto(0, 280)
+    displaychips.goto(-301, 240)
+    displaychips.write("Chips: "+str(casinochips), font=('Courier',30), align="center")
 
     global bet
     bet = turtle.textinput("Choose your bet", "Bet value:")
