@@ -1,1 +1,0 @@
-casinochips = 10000
