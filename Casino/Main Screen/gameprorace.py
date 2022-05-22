@@ -126,9 +126,9 @@ Canvas =Canvas(main_screen,width= 700, height=400,bg ='white')
 Canvas.pack(pady = 20)
 
 #adding images
-horse_image = PhotoImage(file="racegameadam/horseimage222.jpg.png")
-horse_image2 = PhotoImage(file="racegameadam/horseimage222.jpg.png")
-horse_image3 = PhotoImage(file="racegameadam/horseimage222.jpg.png")
+horse_image = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
+horse_image2 = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
+horse_image3 = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
 #resizing images
 horse_image = horse_image.zoom(5)
 horse_image = horse_image.subsample(25)
