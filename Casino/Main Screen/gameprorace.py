@@ -117,8 +117,8 @@ def button_command2():
         chip2 = Label(main_screen, text =  chips ,font=('calibri',20),fg='red',bg='white')
         chip2.place(x=80,y=500)
         entery2.pack_forget()
-        betlab =Label(main_screen, text = 'your bet is:   '+ textbet,font=('calibri',20),fg='red',bg='white' )
-        betlab.place(x=330,y =380)
+        betlab =Label(main_screen, text = 'your bet is: '+ textbet,font=('calibri',20),fg='red',bg='white' )
+        betlab.place(x=310,y =380)
         b1.place(x= 280,y=490)
         b4.pack_forget()
         
