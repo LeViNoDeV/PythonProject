@@ -7,7 +7,7 @@ import tkinter as tk
 from PIL import Image
 
 
-turtle.Turtle._screen = None
+
 turtle.TurtleScreen._RUNNING = True
 
 #window
