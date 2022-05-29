@@ -34,6 +34,8 @@ main_screen.title('horse race')
 main_screen.geometry('800x600')
 main_screen.config(background='WHITE')
 
+
+
 #horse labels
 one =Label(main_screen, text = '1',font=('calibri',25),fg='red',bg='white' )
 one.place(x=10,y =50)
@@ -136,6 +138,7 @@ def button_command2():
 
 def start_game():
     
+    backB.place(x= 505,y=490)
     global horse2_x
     global horse1_x
     global horse3_x
@@ -235,12 +238,27 @@ def new_round():
 
 #canvas setup
 Canvas =Canvas(main_screen,width= 700, height=400,bg ='white'   )
+
 Canvas.pack(pady = 20)
+def back():
+    
+    main_screen.destroy()
+    main_screen.quit()
+    import runpy
+    file_globals = runpy.run_path("ex.py")
+
+    
+
+    
+    
+
+backB =Button (main_screen,text="Back",height=2,width=15, bg ='white', font=('calibri',20),fg='red' ,command=back)
+    
 
 #adding images
-horse_image = PhotoImage(file="horseimage222.jpg.png", master=main_screen)
-horse_image2 = PhotoImage(file="horseimage222.jpg.png", master=main_screen)
-horse_image3 = PhotoImage(file="horseimage222.jpg.png", master=main_screen)
+horse_image = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
+horse_image2 = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
+horse_image3 = PhotoImage(file="racegameadam/horseimage222.jpg.png", master=main_screen)
 #resizing images
 horse_image = horse_image.zoom(5)
 horse_image = horse_image.subsample(25)
