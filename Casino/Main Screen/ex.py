@@ -7,7 +7,8 @@ import tkinter as tk
 from PIL import Image
 
 
-
+turtle.Turtle._screen = None
+turtle.TurtleScreen._RUNNING = True
 
 #window
 mainwn = turtle.Screen()
@@ -195,6 +196,9 @@ def startbuttonhorsegame(x,y):
     lmachine.ht()
     cardwarb.ht()
     horserace.ht()
+    
+    turtle.bye()
+
     import runpy
     file_globals = runpy.run_path("gameprorace.py")
     
