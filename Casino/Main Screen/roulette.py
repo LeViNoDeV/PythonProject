@@ -9,7 +9,7 @@ import math
 
 
 wn = turtle.Screen()
-wn.addshape("projecy/Buttons/returntomain.gif")
+wn.addshape("roulette/Buttons/returntomain.gif")
 
 
 
@@ -315,7 +315,7 @@ class Table:
         backmain.speed(0)
         backmain.penup()
         backmain.setpos(-500,-490)
-        backmain.shape("projecy/Buttons/returntomain.gif")
+        backmain.shape("roulette/Buttons/returntomain.gif")
 
         turtle.listen()
         backmain.onclick(back, 1)
@@ -455,6 +455,14 @@ class Roulette:
 
 
 class Game:
+    backmain = turtle.Turtle(visible = True)
+    backmain.speed(0)
+    backmain.penup()
+    backmain.setpos(-500,-490)
+    backmain.shape("roulette/Buttons/returntomain.gif")
+
+    turtle.listen()
+    backmain.onclick(back, 1)
     def __init__(self):
         self.table = Table(10000)
         self.ro = Roulette()
